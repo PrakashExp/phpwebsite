@@ -1,0 +1,30 @@
+
+<table width="960" border="0" cellspacing="0" cellpadding="0">
+
+  <thead>
+    <tr>
+      <td colspan="9" class="tieude" align="center">{{options.title}}</td>
+    </tr>
+
+    <tr height="30" bgcolor="#ffcc99">
+      <td align="center" width="50" style="border:1px solid #333" ng-repeat="item in options.header"><strong>{{item}}</strong></td>
+    </tr>
+
+
+  </thead>
+
+  <tbody>
+
+    <tr ng-repeat="record in options.records">
+
+      <td align="center" width="50" style="border:1px solid #333" ng-repeat="item in record.info">
+        {{item}}
+      </td>
+
+    </tr>
+
+  </tbody>
+</table>
+
+
+

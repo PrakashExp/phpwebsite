@@ -1,0 +1,103 @@
+[Ngan] --1. Import image home theme
+// done 2. Remove middle recommend items
+// done 3. Remove 'thememium'
+[Ngan] --4. keep Advertisement, replace image
+[Vinh] --5. Remove 'chonkhoang gia'
+// done 6. Remove 'thuongnhieu'
+[Vinh] --7. Keep size home page theme
+[Vinh] --8. Keep size product item in shop
+// done 9. Dang xuat, clear het cookie
+[Vinh] --10. admin page:
+=======
+4. keep Advertisement, replace image
+// done 5. Remove 'chonkhoang gia'
+// done 6. Remove 'thuongnhieu
+7. Keep size home page theme
+8. Keep size product item in shop
+9. Dang xuat, clear het cookie
+10. admin page:
+ - Admin: san pham, don hang, nhan vien, khach hang, slideshow
+ - Nhan vien: san pham, don hang, khach hang
+[Vinh] --11. Danh sach san pham:
+ - Them, 
+ - Xoa sp: redirect to new url to verify
+ - Hien, An
+ - Hien thi: filter
+   + Da an 
+   + Da xoa
+   + Dang hoat dong
+   	
+   	//========================
+	11.1. Lay san pham dang hoat dong (json - file get_data/products.php - loi goi trong js/controller-admin.js):
+		GET: action=getActiveProducts
+	11.2. Lay san pham da an:
+		action=getHiddenProducts
+	11.3. Lay san pham da xoa:
+		action=getDeletedProducts
+		
+	Bo sung:
+	Lay san pham theo loai san pham:
+	category=<ID loai san pham>
+	//========================
+	
+ - Hien trang: fa-check, fa-times, fa-ban
+
+[Vinh] --12. Danh sach don hang
+ - Nut hien thi: Chua xac nhan, da xac nhan , da dong goi, dang chuyen di, dang giao, da giao, da huy
+ - Create column date time
+ - 'Chi tiet' redirect to new url 
+ 
+ 	//========================
+	12.1. Lay thong tin tat ca don hang (json - file get_data/bills.php):
+		GET: action=getAllBills
+	12.2. Lay thong tin don hang co trang thai: chua xac nhan
+		action=getUnverifiedBills
+	12.3. Lay thong tin don hang co trang thai: da xac nhan
+		action=getVerifiedBills
+	12.4. Lay thong tin don hang co trang thai: da dong goi
+		action=getPackedBills
+	12.5. Lay thong tin don hang co trang thai: dang chuyen di
+		action=getShippingBills
+	12.6. Lay thong tin don hang co trang thai: dang giao hang
+		action=getShippedBills
+	12.7. Lay thong tin don hang co trang thai: da giao hang
+		action=getDeliveredBills
+	12.8. Lay thong tin don hang co trang thai: da huy
+		action=getCancelledBills		
+	//========================
+	
+
+[Vinh] --13. Danh sach khach hang
+
+   	//========================
+	13.1. Lay thong tin khach hang / nhan vien / quan tri vien dang hoat dong (json - file get_data/users.php):
+		GET: action=getActiveUsers
+	13.2. Lay thong tin khach hang / nhan vien / quan tri vien da khoa (blocked):
+		action=getBlockedProducts
+	13.3. Lay thong tin khach hang moi:
+		action=getKHM
+	13.4. Lay thong tin khach hang than thiet:
+		action=getKHTT
+	13.5. Lay thong tin khach hang thanh vien:
+		action=getKHTV
+	13.6. Lay thong tin khach hang V.I.P:
+		action=getKHVIP
+	13.7. Lay thong tin nhan vien:
+		action=getNV
+	13.8. Lay thong tin quan tri vien:
+		action=getQTV		
+	//========================
+	
+ - Hien thi: khang hang vip, khach hang than thiet, ...
+             trang thai hoat dong
+
+ - Dieu  chinh trang thai hoat dong
+
+[Vinh] --14. Danh sach nhan vien
+ - Hien thi: trang thai hoat dong
+ - Dieu chinh trang thai hoat dong
+
+[Vinh] --15. Profile: fix edit field
+
+[Vinh] --16. Fix height for edit product
+

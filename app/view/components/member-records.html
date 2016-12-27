@@ -1,0 +1,64 @@
+<div class="wrapper">  
+
+  <br>
+  <p class="h3 text-center">{{options.title}}</p>
+
+</div>
+
+<button class="btn btn-success" ng-click="activeItems()">Hoạt động</button>
+<button class="btn btn-warning" ng-click="hideItems()">Tạm ngưng</button>
+<div class="btn-group">
+  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Lọc
+  </button>
+
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#" ng-repeat="item in options.category" ng-click="filterBy(item.GroupName)">{{item.GroupName}}<br></a>
+    <a class="dropdown-item" href="#" ng-click="filterBy('all')">Tất cả<br></a>
+  </div>
+</div>
+
+<div class="table">
+
+  <div class="row header">
+    <div class="cell" ng-repeat="item in options.header">
+      <strong>{{item}}</strong>
+    </div>
+  </div>
+
+  <div class="row" ng-repeat="record in options.records">
+
+    <div class="cell">
+      <input type="checkbox" name="chon[]" ng-click="checkboxStatus($index)">
+    </div>
+
+    <div class="cell" ng-repeat="item in record.info">
+      {{item}}
+    </div>
+
+    <div class="cell">
+      <a href="profile.php?UserID={{record.linkID}}">Xem</a>
+    </div>
+
+    <div class="cell" ng-switch="record.active">
+
+      <div ng-switch-when="1">
+        <i class="fa fa-check" style="color:green; font-size: 15px">
+        </i>          
+      </div>
+
+      <div ng-switch-when="0">
+        <i class="fa fa-ban" style="color:red; font-size: 15px">
+        </i>          
+      </div>
+
+    </div>
+
+  </div>
+
+
+</div>
+
+
+
+
