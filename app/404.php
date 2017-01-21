@@ -32,7 +32,7 @@
 		<div class="content-404">
 			<img src="images/404/404.png" class="img-responsive" alt="" />
       <h1><b>OPPS!</b> Xin lỗi, chúng tôi không thể tìm thấy trang yêu cầu</h1>
-			<h2><a href="/">Trở lại trang chủ</a></h2>
+			<h2><a href="index.php">Trở lại trang chủ</a></h2>
 		</div>
 	</div>
 

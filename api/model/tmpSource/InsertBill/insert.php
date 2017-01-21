@@ -1,7 +1,7 @@
 <?php
     set_time_limit(3000);
     
-    require_once './database.php';
+    require_once '../../database.php';
     function shuffleString($str, $lenght = 10){
         $shuffleCharacters = str_shuffle($str);
         return substr($shuffleCharacters, 0, $lenght);
@@ -47,6 +47,21 @@
     );
     $nStatus67  = count($Status67arr) - 1;
     
+    $District = array(
+        'Quận 1, Tp. HCM',
+        'Quận 2, Tp. HCM',
+        'Quận 3, Tp. HCM',
+        'Quận 4, Tp. HCM',
+        'Quận 5, Tp. HCM',
+        'Quận Tân Phú, Tp. HCM',
+        'Quận Bình Tân, Tp. HCM',
+        'Quận Thủ Đức, Tp. HCM',
+        'Quận 9, Tp. HCM',
+        'Quận 10, Tp. HCM',
+        'Quận 12, Tp. HCM'
+    );
+    $nDistrict  = count($District) - 1;
+    
     $db = Database::getDB();
     
     $sqlCustomerID  = 'SELECT `UserID` FROM `users` WHERE `UserID` REGEXP \'^C\'';
@@ -69,6 +84,8 @@
     $nProductIDPrices = count($ProductIDPrices) - 1;
 
     for($i = 0; $i < 1000; $i++):
+        $Address = 'Phường ' . rand(1, 10) . ', ' . $District[rand(0, $nDistrict)];
+    
         $Time1 = str_pad(rand(0, 23), 2, '0', STR_PAD_LEFT) . ':' . str_pad(rand(0, 59), 2, '0', STR_PAD_LEFT) . ':' . str_pad(rand(0, 59), 2, '0', STR_PAD_LEFT) . ' ' . rand(1, 29) . '/' . rand(10, 12) . '/' . 2015;
         $Time2 = str_pad(rand(0, 23), 2, '0', STR_PAD_LEFT) . ':' . str_pad(rand(0, 59), 2, '0', STR_PAD_LEFT) . ':' . str_pad(rand(0, 59), 2, '0', STR_PAD_LEFT) . ' ' . rand(1, 29) . '/' . rand(1, 9) . '/' . 2016;
         $Time   = (rand(0, 1) == 0) ? $Time1 : $Time2;
@@ -135,6 +152,7 @@
                             `Time`,
                             `CustomerID`,
                             `EmployeeID`,
+                            `Address`,
                             `BillValue`,
                             `Status`
                         )
@@ -143,6 +161,7 @@
                             \'' . $Time . '\',
                             \'' . $CustomerID . '\',
                             \'' . $EmployeeID . '\',
+                            \'' . $Address . '\',
                             \'' . $BillValue . '\',
                             \'' . $Status . '\'
                         )';

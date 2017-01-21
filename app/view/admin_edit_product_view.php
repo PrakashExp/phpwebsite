@@ -113,7 +113,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <div class="col-md-7">
-                      <textarea class="form-control" id="description" type="text" style="width:500px" name="description"><?php echo @$Description; ?></textarea>
+                      <textarea class="form-control" id="description" type="text" style="width:500px; height: 200px;" name="description"><?php echo @$Description; ?></textarea>
                     </div>
                   </div>
                 </div>
@@ -167,12 +167,6 @@
               <div class="form-group">
                 <div class="col-md-offset-4 col-md-3">
                   <button type="submit" name="update" class="btn btn-success">Cập nhật</button>
-                </div>
-              </div>
-              
-              <!-- Vinh viết js cho nút hủy nha!!! -->
-              <div class="form-group">
-                <div class="col-md-offset-4 col-md-3">
                   <a href="admin-dashboard.php" class="btn btn-success btn-responsive">Hủy</a>
                 </div>
               </div>

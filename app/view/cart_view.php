@@ -37,7 +37,10 @@
 					</thead>
 					<tbody>
 					<?php
-					   foreach ($_SESSION['cart'] as $ProductID => $product): ?>
+					   foreach ($_SESSION['cart'] as $ProductID => $product): 
+                            $numProductMax = ProductDB::getProductsByKey(array('ProductID'=>$ProductID));
+                            $numProductMax  = $numProductMax[0]['Quantity'];
+				   ?>
 						<tr>
 							<td class="cart_product">
 								<a href=""><img src="../<?php echo trim($product['Image']);?>" alt="" width="100px"></a>
@@ -47,17 +50,17 @@
 								<p>Mã sản phẩm: <?php echo $ProductID;?></p>
 							</td>
 							<td class="cart_price">
-								<p><?php    echo number_format($product['Price']);?></p>
+								<p><?php    echo number_format($product['Price']);?> VNĐ</p>
 							</td>
 							<td class="cart_quantity">
 								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href="cart.php?action=update&ProductID=<?php echo $ProductID; ?>&Quantity=<?php echo ($product['Quantity'] + 1);?>"> + </a>
-									<input class="cart_quantity_input" type="text" name="quantity" value="<?php echo number_format($product['Quantity']);?>" autocomplete="off" size="2">
 									<a class="cart_quantity_down" <?php if ($product['Quantity'] > 1):?>href="cart.php?action=update&ProductID=<?php echo $ProductID; ?>&Quantity=<?php echo ($product['Quantity'] - 1);?>"<?php endif;?>> - </a>
+									<input class="cart_quantity_input" type="text" name="quantity" value="<?php echo number_format($product['Quantity']);?>" autocomplete="off" size="2">
+									<a class="cart_quantity_up" <?php if ($product['Quantity'] < $numProductMax):?>href="cart.php?action=update&ProductID=<?php echo $ProductID; ?>&Quantity=<?php echo ($product['Quantity'] + 1);?>"<?php endif;?>> + </a>
 								</div>
 							</td>
 							<td class="cart_total">
-								<p class="cart_total_price"><?php echo number_format($product['Total']);?></p>
+								<p class="cart_total_price"><?php echo number_format($product['Total']);?> VNĐ</p>
 							</td>
 							<td class="cart_delete">
 								<a class="cart_quantity_delete" href="cart.php?action=delete&ProductID=<?php echo $ProductID; ?>"><i class="fa fa-times"></i></a>
@@ -67,7 +70,7 @@
 					</tbody>
 				</table>
                 <div style="text-align: right">
-                  <a class="btn btn-default update" href="./checkout.php">Tiep tuc</a>
+                  <a class="btn btn-default update" href="./checkout.php">Tiếp tục</a>
                 </div>
 				<?php endif;?>
 			</div>

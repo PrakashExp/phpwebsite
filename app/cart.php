@@ -4,18 +4,11 @@
     require_once '../api/model/database.php';
     require_once '../api/model/functions.php';
     require_once '../api/model/product_db.php';
+    require_once('../api/model/cart_db.php');
     
     if (empty($_SESSION['cart'])){
         $_SESSION['cart'] = array();
     }
-
-    require_once('../api/model/cart_db.php');
-    
-    /* if (isset($_POST['sort'])) {
-        $sortKey    = $_POST['sort'];
-    } else {
-        $sortKey    = 'Name';
-    } */
     
     $method = $_SERVER['REQUEST_METHOD'];
     $action = '';

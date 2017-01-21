@@ -24,6 +24,15 @@ switch ($method) {
       
       switch ($action){
           default:
+          case 'getAllProducts':
+              $ProductListActive   = ProductDB::getProductsPagination($pageIndex, $numberItems, array('Active'=>'1'));
+              $ProductListBlock   = ProductDB::getProductsPagination($pageIndex, $numberItems, array('Active'=>'0'));
+
+              $ProductList = array_merge($ProductListBlock, $ProductListActive);
+              echo json_encode($ProductList);
+              return;
+              break;
+
           case 'getActiveProducts':
               $KeyGet['Active'] = 1;
               break;
@@ -54,21 +63,28 @@ switch ($method) {
 
       switch($action){
       case 'Active':
-          foreach ($ListProductIDs as $key=>$ProductID){
+          foreach ($ListProductIDs as $ProductID){
               ProductDB::activeProduct($ProductID);
           }
           echo json_encode("Active complete");
           break;
             
       case 'Hide':
-          foreach ($ListProductIDs as $key=>$ProductID){
+          foreach ($ListProductIDs as $ProductID){
               ProductDB::hideProduct($ProductID);
           }
           echo json_encode("Hide complete");
           break;
+          
+      case 'Show':
+          foreach ($ListProductIDs as $ProductID){
+              ProductDB::showProduct($ProductID);
+          }
+          echo json_encode("Show complete");
+          break;
             
       case 'Delete':
-          foreach ($ListProductIDs as $key=>$ProductID){
+          foreach ($ListProductIDs as $ProductID){
               ProductDB::deleteProduct($ProductID);
           }
           echo json_encode("Delete complete");

@@ -53,15 +53,31 @@
             
             return Database::loadAllRows($stmt);
         }
+        
         public static function getMostSellingProducts()
         {
             $db=Database::getDB();
-            $querry="select products.Name, products.Price, products.ProductID, products.LinkImage from detailofbill 
-                    inner join products on products.ProductID=detailofbill.ProductID
-                    inner join categories on products.CategoryID=categories.CategoryID
-                    GROUP BY detailofbill.ProductID
-                    HAVING COUNT(detailofbill.BillID)>0
-                    LIMIT 50";
+            $querry="SELECT
+                      `products`.`ProductID`,
+                      `products`.`Name` AS 'ProductName',
+                      `products`.`Price`,
+                      `products`.`LinkImage`,
+                      `categories`.`Name` AS 'CategoryName',
+                      (`detailofbill`.Quantity * `products`.Price) AS 'Sum'
+                    FROM
+                      `detailofbill`
+                    INNER JOIN
+                      `products` ON `products`.`ProductID` = `detailofbill`.`ProductID`
+                    INNER JOIN
+                      `categories` ON `products`.`CategoryID` = `categories`.`CategoryID`
+                    WHERE
+                      `products`.`Active` = 1
+                    GROUP BY
+                      `detailofbill`.ProductID
+                    ORDER BY
+                      (`detailofbill`.Quantity * `products`.Price) DESC
+                    LIMIT 18";
+            
             Database::setQuery($querry);
             $stmt   = Database::execute();
 
@@ -69,6 +85,7 @@
 
             return $divideArray;
         }
+        
         /**
          * Lấy thông tin sản phẩm hiển thị trên trang chủ.
          * @param string $OrderBy       Trường được sắp xếp
@@ -196,7 +213,7 @@
          * @return boolean              True: thiết lập thành công || False: thiết lập thất bại
          */
         public static function activeProduct($ProductID){
-            return ProductDB::updateProduct($ProductID, array('Hide' => '0'));
+            return ProductDB::updateProduct($ProductID, array('Active' => '1'));
         }
         
         /**

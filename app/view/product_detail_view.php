@@ -24,27 +24,6 @@
 								<h3>ZOOM</h3>
 							</div>
 							<div id="similar-product" class="carousel slide" data-ride="carousel">
-								
-								  <!-- Wrapper for slides -->
-								    <!-- <div class="carousel-inner"> -->
-									<!-- 	<div class="item active"> -->
-									<!-- 	  <a href=""><img src="images/product-details/similar1.jpg" alt=""></a> -->
-									<!-- 	  <a href=""><img src="images/product-details/similar2.jpg" alt=""></a> -->
-									<!-- 	  <a href=""><img src="images/product-details/similar3.jpg" alt=""></a> -->
-									<!-- 	</div> -->
-									<!-- 	<div class="item"> -->
-									<!-- 	  <a href=""><img src="images/product-details/similar1.jpg" alt=""></a> -->
-									<!-- 	  <a href=""><img src="images/product-details/similar2.jpg" alt=""></a> -->
-									<!-- 	  <a href=""><img src="images/product-details/similar3.jpg" alt=""></a> -->
-									<!-- 	</div> -->
-									<!-- 	<div class="item"> -->
-									<!-- 	  <a href=""><img src="images/product-details/similar1.jpg" alt=""></a> -->
-									<!-- 	  <a href=""><img src="images/product-details/similar2.jpg" alt=""></a> -->
-									<!-- 	  <a href=""><img src="images/product-details/similar3.jpg" alt=""></a> -->
-									<!-- 	</div> -->
-										
-									<!-- </div> -->
-
 								  <!-- Controls -->
 								  <a class="left item-control" href="#similar-product" data-slide="prev">
 									<i class="fa fa-angle-left"></i>
@@ -62,7 +41,7 @@
 								<p>Mã sản phẩm: <?php echo $productItem['ProductID'];?></p>
 								<img src="images/product-details/rating.png" alt="" />
 								<span>
-									<span>VND: <?php echo number_format($productItem['Price']);?></span>
+									<span>VNĐ: <?php echo number_format($productItem['Price']);?></span>
 									<label>Số lượng:</label>
 									<input type="text" value="3" />
 									<button type="button" class="btn btn-fefault cart">
@@ -205,21 +184,29 @@
 								  
 									<?php
 									$product=$chunk;
-									foreach ($product as $ProductID => $value): 
+									foreach ($product as $value): 
 									?>
-									  <div class="col-sm-4">
-										  <div class="product-image-wrapper">
-											  <div class="single-products">
-												  <div class="productinfo text-center">
-													  <a href="product-detail.php?ProductID=<?php echo $value['ProductID'];?>" > <img max-height="128" max-width="255" src="<?php echo '../' . $value['LinkImage']; ?>" alt="" /></a>
-													  <h2><?php echo number_format($value['Price']);?></h2>
-													  <a href="product-detail.php?ProductID=<?php echo $value['ProductID'];?>" > <p><b><?php echo $value['Name'];?></b></p></a>
-											      <a href="cart.php?action=add&ProductID=<?php echo $value['ProductID']; ?>&Quantity=1" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>
-												  </div>
-												  
-											  </div>
-										  </div>
-									  </div>	
+                                    <div class="col-sm-4">
+            							<div class="product-image-wrapper">
+            								<div class="single-products">
+            									<div class="productinfo text-center">
+            										<img src="<?php echo '../' . $value['LinkImage']; ?>" alt="" />
+            										<h2><?php echo number_format($value['Price']);?></h2>
+            										<p><b><?php echo $value['ProductName'];?></b></p>
+            										<p><?php echo $value['CategoryName'];?></p>
+            									</div>
+            									<div class="product-overlay">
+            										<div class="overlay-content">
+                										<a href="product-detail.php?ProductID=<?php echo $value['ProductID'];?>" class="btn btn-default add-to-cart">Chi tiết sản phẩm</a>
+            											<h2><?php echo number_format($value['Price']) . ' VNĐ';?></h2>
+            											<p><b><?php echo $value['ProductName'];?></b></p>
+            											<p><?php echo $value['ProductID'];?></p>
+            											<a href="cart.php?action=add&ProductID=<?php echo $value['ProductID']; ?>&Quantity=1" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>
+            										</div>
+            									</div>
+            								</div>
+            							</div>
+            						</div>
 									<?php endforeach; ?>
 							</div>
 								<?php endforeach; ?>

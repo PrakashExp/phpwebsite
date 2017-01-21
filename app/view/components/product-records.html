@@ -1,26 +1,28 @@
 <div class="wrapper">  
-
   <br>
   <p class="h3 text-center">{{options.title}}</p>
- 
-
 </div>
 
-<a href="admin-add-product.php" class="btn btn-success">Thêm sản phẩm</a>
-<button class="btn btn-danger" ng-click="deleteItems()">Xóa sản phẩm</button>
-<button class="btn btn-success" ng-click="activeItems()">Hiện</button>
-<button class="btn btn-warning" ng-click="hideItems()">Ẩn</button>
-
-<!-- <button class="btn btn-success" ng-click="filterBy()">Filter</button> -->
-<!-- <button class="btn btn-success" ng-click="testBy()">Test</button> -->
+<a href="admin-add-product.php" class="btn btn-success">Thêm mới</a>
+<button class="btn btn-danger" ng-click="deleteItems()">Xóa</button>
 
 <div class="btn-group">
-  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Lọc
-  </button>
+  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cập nhật</button>
   <div class="dropdown-menu">
+    <a class="dropdown-item" href="#" ng-click="activeItems()">Kích hoạt<br></a>
+    <a class="dropdown-item" href="#" ng-click="hideItems()">Ẩn<br></a>
+    <a class="dropdown-item" href="#" ng-click="showItems()">Hiện<br></a>
+  </div>
+</div>
+
+<button class="btn btn-success" ng-click="getActiveProduct()">Danh sách hoạt động</button>
+<button class="btn btn-warning" ng-click="getDeletedProduct()">Danh sách đã xóa</button>
+
+<div class="btn-group">
+  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Lọc</button>
+  <div class="dropdown-menu">
+	<a class="dropdown-item" href="#" ng-click="filterBy('all')">Tất cả<br></a>
     <a class="dropdown-item" href="#" ng-repeat="item in options.category" ng-click="filterBy(item.CategoryName)">{{item.CategoryName}}<br></a>
-    <a class="dropdown-item" href="#" ng-click="filterBy('all')">Tất cả<br></a>
   </div>
 </div>
 
@@ -45,13 +47,13 @@
     <div class="cell">
       <a href="admin-edit-product.php?ProductID={{record.linkID}}">Sửa</a>
       <a href="">-</a>
-      <a href="product-detail.php?ProductID={{record.linkID}}">Xem</a>
+      <a href="admin_detail_of_product.php?ProductID={{record.linkID}}">Xem</a>
     </div>
 
     <div class="cell" ng-switch="record.hide">
 
       <div ng-switch-when="1">
-        <i class="fa fa-ban" style="color:red; font-size: 15px">
+        <i class="fa fa-times" style="color:red; font-size: 15px">
         </i>          
       </div>
 
@@ -59,10 +61,6 @@
         <i class="fa fa-check" style="color:green; font-size: 15px">
         </i>          
       </div>
-
     </div>
-
   </div>
-
-
 </div>

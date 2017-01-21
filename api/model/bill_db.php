@@ -39,13 +39,11 @@
             }
         
             $sql    = 'SELECT `BillID`, `usersOne`.`Name` as \'CustomerName\', `CustomerID`, `usersTwo`.`Name` as \'EmployeeName\', `EmployeeID`, `BillValue`, `Status`
-                            FROM `bills` LEFT JOIN `users` usersOne ON 
-`usersOne`.`UserID` = `bills`.`CustomerID` LEFT JOIN `users` usersTwo ON 
-`usersTwo`.`UserID` = `bills`.`EmployeeID`
+                            FROM `bills`
+                            LEFT JOIN `users` usersOne ON `usersOne`.`UserID` = `bills`.`CustomerID`
+                            LEFT JOIN `users` usersTwo ON `usersTwo`.`UserID` = `bills`.`EmployeeID`
                             WHERE ' . $WhereCondition . '
                             ORDER BY  `bills`.`' . $OrderBy . '`' . $Limit;
-
-            //                        echo $sql;
         
             Database::setQuery($sql);
             $stmt   = Database::execute();
@@ -61,7 +59,6 @@
          * @param string $OrderBy       Trường được sắp xếp
          * @return Ambigous <Ambigous, boolean, multitype:>
          */
-
         public static function getBillsPagination($currentPage, $numberItemsPerPage, $KeyGet = array(), $CategoryID = '0', $OrderBy = 'BillID'){
             $Position   = ($currentPage - 1) * $numberItemsPerPage;
             return BillDB::getBillsByKey(array_merge($KeyGet, array('Limit' => array('Position' => $Position, 'Number' => $numberItemsPerPage))), $OrderBy);
@@ -70,18 +67,15 @@
         /**
          * Tạo mới đơn hàng
          * @param unknown $DetailOfBill Mảng chi tiết đơn hàng.
+         * @param unknown $Address Địa chỉ giao hàng.
          * @param string $CustomerID    NULL: Khách hàng đặt hàng online | != NULL: Nhân viên đặt hàng cho khách (trạng thái đã xác nhận)
          * @return boolean
          */
-        public static function addBill($DetailOfBill, $CustomerID = null){
-			$EmployeeID = "NULL";
-			$time=date("Y-m-d H:i:s");
+        public static function addBill($DetailOfBill, $Address, $CustomerID = null){
             if ($CustomerID == null){   //Khách hàng mua online (vãng lai/đã đăng ký).
-			
-                if (isset($_SESSION['User'])){ //Khách hàng đã đăng ký
-                    $CustomerID     = $_SESSION['User']['UserID'];
-                }    
-				$Status         = '1';           
+                $CustomerID     = $_SESSION['User']['UserID'];
+                $EmployeeID     = 'NULL';
+				$Status         = '1';         
             } else {    //Nhân viên thêm hóa đơn (mua tại cửa hàng)
                 $EmployeeID     = '\''.$_SESSION['User']['UserID'].'\'';
                 $Status         = '2';
@@ -95,46 +89,24 @@
 
             $db->beginTransaction();
 
-            //Tạo đơn hàng
-            /*$sqlBills   = 'INSERT INTO `bills`(
-                            `BillID`,
-                            `Time`,
-                            `CustomerID`,
-                            `EmployeeID`,
-                            `BillValue`,
-                            `Status`
-                        )
-                        VALUES(
-                            \'' . $BillID . '\',
-                            $time,
-                            \'' . $CustomerID . '\',
-                            \'' . $EmployeeID . '\,
-                            \'' . $BillValue . '\',
-                            \'' . $Status . '\'
-                        )';*/
-						$sqlBills   = 'INSERT INTO `bills`(
-                            `BillID`,
-                            `Time`,
-                            `CustomerID`,
-                            `EmployeeID`,
-                            `BillValue`,
-                            `Status`
-                        )
-                        VALUES('.'\''.$BillID.'\''.','.'\''.$time.'\''.','.'\''.$CustomerID.'\''.','.$EmployeeID.','.'\''.$BillValue.'\''.','.'\''.$Status.'\''.')';
-			
+			$sqlBills   = 'INSERT INTO `bills`(
+                `BillID`,
+                `Time`,
+                `CustomerID`,
+                `EmployeeID`,
+			    `Address`,
+                `BillValue`,
+                `Status`
+            )
+            VALUES(\''.$BillID.'\', NOW(), \''.$CustomerID.'\','.$EmployeeID.', \''.$Address.'\', \''.$BillValue.'\', \''.$Status.'\')';
+
             Database::setQuery($sqlBills);
            	Database::execute();
             
             //Chèn các chi tiết đơn hàng.
-            //$nDetailOfBill  = count($DetailOfBill);
-            foreach($DetailOfBill as $ProductID => $product)
+            foreach($DetailOfBill as $ProductID =>$product)
 			{
-            //for ($j = 1; $j <= $nDetailOfBill; $j++):
-                /*$ProductID  = $DetailOfBill[$j]['ProductID'];
-                $Price      = $DetailOfBill[$j]['Price'];
-                $Quantity   = $DetailOfBill[$j]['Quantity'];
-                $BillValue  += $Price * $Quantity;*/
-				$ProductID  = $ProductID;
+				//$ProductID  = $ProductID;
                 $Price      = $product['Price'];
                 $Quantity   = $product['Quantity'];
                 $BillValue  += $Price * $Quantity;
@@ -148,9 +120,18 @@
                                             \'' . $Quantity . '\'
                                         );';
                 Database::setQuery($sqlDetailOfBill);
-                Database::execute();			
+                Database::execute();		
+
+                //Update số lượng còn lại của sản phẩm.
+                $sqlUpdateBillValue = 'UPDATE
+                                          `products`
+                                        SET
+                                          `Quantity` = `Quantity` - ' . $Quantity . '
+                                        WHERE
+                                          `products`.`ProductID` = \'' . $ProductID . '\'';
+                Database::setQuery($sqlUpdateBillValue);
+                Database::execute();
 			}
-            //endfor;
             
             //Update giá trị đơn hàng.            
             $sqlUpdateBillValue = 'UPDATE
@@ -221,6 +202,22 @@
 
             Database::setQuery($sqlUpdateStatus);
             $stmt = Database::execute();
+        }
+        
+        /* Lay thong tin chi tiet hoa don */
+        public static function getBillsInfo($UserID){
+            $db = Database::getDB();
+            $sql = 'SELECT `bills`. `BillID`, `usersTwo`.`Name` as \'EmployeeName\', `EmployeeID`, `BillValue`, `Status`
+                        FROM `bills`
+                            LEFT JOIN `users` usersTwo ON `usersTwo`.`UserID` = `bills`.`EmployeeID`
+                            INNER JOIN detailofbill ON bills.BillID = detailofbill.BillID
+                            INNER JOIN products ON products.ProductID = detailofbill.ProductID
+                        WHERE CustomerID='.'\''.$UserID.'\'';
+        
+            Database::setQuery($sql);
+            $stmt   = Database::execute();
+        
+            return Database::loadAllRows($stmt);
         }
         
         /*==================================== DETAIL OF BILL ====================================*/ 
@@ -369,39 +366,27 @@
             
             return $db->commit();
         }
-        /*Lay thong tin chi tiet cua hoa don */
-        public static function getBillInfosByBillID($UserID, $billID=null){
-            $db = Database::getDB();
-            $sql = 'SELECT `bills`. `BillID`, `bills`. `Time`, `usersTwo`.`Name` as \'EmployeeName\', `EmployeeID`, `BillValue`, `Status`, `products`.`ProductID`, `products`.`Name`, `products`.`LinkImage` as \'Image\' , `products`.`Price`, `products`.`Quantity`
-                            FROM `bills` LEFT JOIN `users` usersTwo ON 
-`usersTwo`.`UserID` = `bills`.`EmployeeID` inner join detailofbill on bills.BillID=detailofbill.BillID inner join products on products.ProductID=detailofbill.ProductID
-where CustomerID='.'\''.$UserID.'\' AND
-     `bills`. `BillID` ='.'\'' . $billID . '\'';
 
-//             //            $sql='select * from bills inner join users on bills.EmployeeID=users.UserID inner join detailofbill on bills.BillID=detailofbill.BillID inner join products on products.ProductID=detailofbill.ProductID
-// where CustomerID='.'\''.$UserID.'\'';
+//         /*Lay thong tin chi tiet cua hoa don */
+         public static function getBillInfosByBillID($UserID, $billID=null){
+            $db = Database::getDB();
+            $sql = 'SELECT `bills`. `BillID`, `bills`. `Time`, `CustomerID`, `userOne`.`Name` as \'CustomerName\', `EmployeeID`, `userTwo`.`Name` as \'EmployeeName\', `bills`.`Address`,`BillValue`, `Status`, `products`.`ProductID`, `products`.`Name`, `products`.`LinkImage` as \'Image\' , `products`.`Price`, `detailofbill`.`Quantity`
+                        FROM `bills`
+                            LEFT JOIN `users` userOne ON `userOne`.`UserID` = `bills`.`CustomerID`
+                            LEFT JOIN `users` userTwo ON `userTwo`.`UserID` = `bills`.`EmployeeID`
+                            INNER JOIN detailofbill ON bills.BillID = detailofbill.BillID
+                            INNER JOIN products on products.ProductID = detailofbill.ProductID
+                        WHERE CustomerID='.'\''.$UserID.'\' AND `bills`. `BillID` ='.'\'' . $billID . '\'';
+
+
             Database::setQuery($sql);
             $stmt   = Database::execute();
             return Database::loadAllRows($stmt);
         }
-
-         /* Lay thong tin hoa don theo UserID*/
-          public static function getBillsInfo($UserID, $billID=null){
-            $db = Database::getDB();
-            $sql = 'SELECT `bills`. `BillID`, `usersTwo`.`Name` as \'EmployeeName\', `EmployeeID`, `BillValue`, `Status`
-                            FROM `bills` LEFT JOIN `users` usersTwo ON 
-`usersTwo`.`UserID` = `bills`.`EmployeeID` inner join detailofbill on bills.BillID=detailofbill.BillID inner join products on products.ProductID=detailofbill.ProductID
-where CustomerID='.'\''.$UserID.'\'';
-            
-            Database::setQuery($sql);
-            $stmt   = Database::execute();
-            return Database::loadAllRows($stmt);
-        }
-
 
         public static function getBillsInfoByUser($UserID){
             $db = Database::getDB();
-            $sql = 'SELECT distinct `bills`. `BillID`, `usersTwo`.`Name` as \'EmployeeName\', `EmployeeID`, `BillValue`, `Status`
+            $sql = 'SELECT distinct `bills`. `BillID`, `usersTwo`.`Name` as \'EmployeeName\', `EmployeeID`, `BillValue`, `Status`, `bills`.`Address`
                             FROM `bills` LEFT JOIN `users` usersTwo ON 
 `usersTwo`.`UserID` = `bills`.`EmployeeID` inner join detailofbill on bills.BillID=detailofbill.BillID inner join products on products.ProductID=detailofbill.ProductID
 where CustomerID='.'\''.$UserID.'\'';
@@ -413,8 +398,6 @@ where CustomerID='.'\''.$UserID.'\'';
             //                        echo $sql;
             return Database::loadAllRows($stmt);
         }
-
-
 }
    
 ?>        

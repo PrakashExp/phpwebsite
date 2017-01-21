@@ -15,7 +15,7 @@ if(isset($_POST['submit_get_pass']))
 		if($check)
 		{
 			AccountDB::setNewPassword($username,$password);	
-			echo "<script>alert('email đã được gửi tới hộp thư mà bạn đăng ký trong tài khoản. Hãy check lại mail');</script>";
+			echo "<script>alert('Email đã được gửi tới hộp thư mà bạn đăng ký trong tài khoản. Hãy check lại mail');</script>";
 		echo "<meta http-equiv='refresh' content='0;url=../../app/index.php'>";	
 		}		
 		

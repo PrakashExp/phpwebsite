@@ -101,6 +101,14 @@ switch ($method) {
         case 'Pack':
             updateStatusBill($ListBillIDs, $userID, "Packed", "Packed complete!");
             break;
+
+        case 'Shipping':
+            updateStatusBill($ListBillIDs, $userID, "Shipping", "Shipping complete!");
+            break;
+
+        case 'Shipped':
+            updateStatusBill($ListBillIDs, $userID, "Shipped", "Shipped complete!");
+            break;
             
         case 'Deliver':
             updateStatusBill($ListBillIDs, $userID, "Delivered", "Delivered complete!");

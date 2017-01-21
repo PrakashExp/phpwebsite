@@ -4,92 +4,10 @@
     <?php
     include "style_head.php";
     ?>
-
     <title>Thanh toán</title>
-
   </head>
-
   <body>
-
     <?php include "view/header.php";?>
-
-	  <!-- <section id="do_action"> -->
-	  <!-- 	<div class="container"> -->
-		<!-- <div class="heading"> -->
-		<!-- 	<h3>What would you like to do next?</h3> -->
-		<!-- 	<p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p> -->
-		<!-- </div> -->
-		<!-- <div class="row"> -->
-		<!-- <div class="col-sm-6"> -->
-		<!-- 	<div class="chose_area"> -->
-		<!-- 		<ul class="user_option"> -->
-		<!-- 			<li> -->
-		<!-- 				<input type="checkbox"> -->
-		<!-- 				<label>Use Coupon Code</label> -->
-		<!-- 			</li> -->
-		<!-- 			<li> -->
-		<!-- 				<input type="checkbox"> -->
-		<!-- 				<label>Use Gift Voucher</label> -->
-		<!-- 			</li> -->
-		<!-- 			<li> -->
-		<!-- 				<input type="checkbox"> -->
-		<!-- 				<label>Estimate Shipping & Taxes</label> -->
-		<!-- 			</li> -->
-		<!-- 		</ul> -->
-		<!-- 		<ul class="user_info"> -->
-		<!-- 			<li class="single_field"> -->
-		<!-- 				<label>Country:</label> -->
-		<!-- 				<select> -->
-		<!-- 					<option>United States</option> -->
-		<!-- 					<option>Bangladesh</option> -->
-		<!-- 					<option>UK</option> -->
-		<!-- 					<option>India</option> -->
-		<!-- 					<option>Pakistan</option> -->
-		<!-- 					<option>Ucrane</option> -->
-		<!-- 					<option>Canada</option> -->
-		<!-- 					<option>Dubai</option> -->
-		<!-- 				</select> -->
-		
-		<!-- 			</li> -->
-		<!-- 			<li class="single_field"> -->
-		<!-- 				<label>Region / State:</label> -->
-		<!-- 				<select> -->
-		<!-- 					<option>Select</option> -->
-		<!-- 					<option>Dhaka</option> -->
-		<!-- 					<option>London</option> -->
-		<!-- 					<option>Dillih</option> -->
-		<!-- 					<option>Lahore</option> -->
-		<!-- 					<option>Alaska</option> -->
-		<!-- 					<option>Canada</option> -->
-		<!-- 					<option>Dubai</option> -->
-		<!-- 				</select> -->
-		
-		<!-- 			</li> -->
-		<!-- 			<li class="single_field zip-field"> -->
-		<!-- 				<label>Zip Code:</label> -->
-		<!-- 				<input type="text"> -->
-		<!-- 			</li> -->
-		<!-- 		</ul> -->
-		<!-- 		<a class="btn btn-default update" href="">Get Quotes</a> -->
-		<!-- 		<a class="btn btn-default check_out" href="">Continue</a> -->
-		<!-- 	</div> -->
-		<!-- </div> -->
-
-		<!-- <div class="col-sm-6"> -->
-		<!-- 	<div class="total_area"> -->
-		<!-- 		<ul> -->
-		<!-- 			<li>Cart Sub Total <span><?php echo number_format($totalPrice); ?></span></li> -->
-		<!-- 			<li>Eco Tax <span>$2</span></li> -->
-		<!-- 			<li>Shipping Cost <span>Free</span></li> -->
-		<!-- 			<li>Total <span><?php echo number_format($totalPrice+2); ?></span></li> -->
-		<!-- 		</ul> -->
-		<!-- 			<a class="btn btn-default update" href="">Update</a> -->
-		<!-- 			<a class="btn btn-default check_out" href="../app/bill.php">Buy</a> -->
-		<!-- 	</div> -->
-		<!-- </div> -->
-		<!-- </div> -->
-		<!-- </div> -->
-	  <!-- </section> --><!--/#do_action-->
 
     <!--Tinh tong so tien trong danh sach san pham $product -->
     <?php if (count(@$_SESSION['cart']) > 0):?>
@@ -103,114 +21,14 @@
 
 	  <section id="cart_items">
 		  <div class="container">
-			  <!-- <div class="breadcrumbs"> -->
-			  <!-- 	<ol class="breadcrumb"> -->
-			  <!-- 	  <li><a href="#">Home</a></li> -->
-			  <!-- 	  <li class="active">Check out</li> -->
-			  <!-- 	</ol> -->
-			  <!-- </div><\!--/breadcrums-\-> -->
-
-			  <!-- <div class="step-one"> -->
-			  <!-- 	<h2 class="heading">Step1</h2> -->
-			  <!-- </div> -->
-			  <!-- <div class="checkout-options"> -->
-			  <!-- 	<h3>New User</h3> -->
-			  <!-- 	<p>Checkout options</p> -->
-			  <!-- 	<ul class="nav"> -->
-			  <!-- 		<li> -->
-			  <!-- 			<label><input type="checkbox"> Register Account</label> -->
-			  <!-- 		</li> -->
-			  <!-- 		<li> -->
-			  <!-- 			<label><input type="checkbox"> Guest Checkout</label> -->
-			  <!-- 		</li> -->
-			  <!-- 		<li> -->
-			  <!-- 			<a href=""><i class="fa fa-times"></i>Cancel</a> -->
-			  <!-- 		</li> -->
-			  <!-- 	</ul> -->
-			  <!-- </div><\!--/checkout-options-\-> -->
-
-			  <!-- <div class="register-req"> -->
-			  <!-- 	<p>Please use Register And Checkout to easily get access to your order history, or use Checkout as Guest</p> -->
-			  <!-- </div><\!--/register-req-\-> -->
-
-			  <div class="shopper-informations">
-				  <div class="row">
-					  <!-- <div class="col-sm-3"> -->
-					  <!-- 	<div class="shopper-info"> -->
-					  <!-- 		<p>Shopper Information</p> -->
-					  <!-- 		<form> -->
-					  <!-- 			<input type="text" placeholder="Display Name"> -->
-					  <!-- 			<input type="text" placeholder="User Name"> -->
-					  <!-- 			<input type="password" placeholder="Password"> -->
-					  <!-- 			<input type="password" placeholder="Confirm password"> -->
-					  <!-- 		</form> -->
-					  <!-- 		<a class="btn btn-primary" href="">Get Quotes</a> -->
-					  <!-- 		<a class="btn btn-primary" href="">Continue</a> -->
-					  <!-- 	</div> -->
-					  <!-- </div> -->
-					  <!-- <div class="col-sm-5 clearfix"> -->
-					  <!-- 	<div class="bill-to"> -->
-					  <!-- 		<p>Bill To</p> -->
-					  <!-- 		<div class="form-one"> -->
-					  <!-- 			<form> -->
-					  <!-- 				<input type="text" placeholder="Company Name"> -->
-					  <!-- 				<input type="text" placeholder="Email*"> -->
-					  <!-- 				<input type="text" placeholder="Title"> -->
-					  <!-- 				<input type="text" placeholder="First Name *"> -->
-					  <!-- 				<input type="text" placeholder="Middle Name"> -->
-					  <!-- 				<input type="text" placeholder="Last Name *"> -->
-					  <!-- 				<input type="text" placeholder="Address 1 *"> -->
-					  <!-- 				<input type="text" placeholder="Address 2"> -->
-					  <!-- 			</form> -->
-					  <!-- 		</div> -->
-					  <!-- 		<div class="form-two"> -->
-					  <!-- 			<form> -->
-					  <!-- 				<input type="text" placeholder="Zip / Postal Code *"> -->
-					  <!-- 				<select> -->
-					  <!-- 					<option>-- Country --</option> -->
-					  <!-- 					<option>United States</option> -->
-					  <!-- 					<option>Bangladesh</option> -->
-					  <!-- 					<option>UK</option> -->
-					  <!-- 					<option>India</option> -->
-					  <!-- 					<option>Pakistan</option> -->
-					  <!-- 					<option>Ucrane</option> -->
-					  <!-- 					<option>Canada</option> -->
-					  <!-- 					<option>Dubai</option> -->
-					  <!-- 				</select> -->
-					  <!-- 				<select> -->
-					  <!-- 					<option>-- State / Province / Region --</option> -->
-					  <!-- 					<option>United States</option> -->
-					  <!-- 					<option>Bangladesh</option> -->
-					  <!-- 					<option>UK</option> -->
-					  <!-- 					<option>India</option> -->
-					  <!-- 					<option>Pakistan</option> -->
-					  <!-- 					<option>Ucrane</option> -->
-					  <!-- 					<option>Canada</option> -->
-					  <!-- 					<option>Dubai</option> -->
-					  <!-- 				</select> -->
-					  <!-- 				<input type="password" placeholder="Confirm password"> -->
-					  <!-- 				<input type="text" placeholder="Phone *"> -->
-					  <!-- 				<input type="text" placeholder="Mobile Phone"> -->
-					  <!-- 				<input type="text" placeholder="Fax"> -->
-					  <!-- 			</form> -->
-					  <!-- 		</div> -->
-					  <!-- 	</div> -->
-					  <!-- </div> -->
-					  <!-- <div class="col-sm-4"> -->
-					  <!-- 	<div class="order-message"> -->
-					  <!-- 		<p>Shipping Order</p> -->
-					  <!-- 		<textarea name="message"  placeholder="Notes about your order, Special Notes for Delivery" rows="16"></textarea> -->
-					  <!-- 		<label><input type="checkbox"> Shipping to bill address</label> -->
-					  <!-- 	</div>	 -->
-					  <!-- </div> -->					
-				  </div>
-			  </div>
 			  <div class="review-payment">
 				  <h2>Hóa đơn thanh toán</h2>
 			  </div>
 			  
 			  <div class="table-responsive cart_info">
+              <form method="post" action="bill.php">
           <?php if (count(@$_SESSION['cart']) > 0):?>
+                  
 				    <table class="table table-condensed">
 					    <thead>
 						    <tr class="cart_menu">
@@ -238,7 +56,7 @@
 							      </td>
 							      <td class="cart_quantity">
 								      <p class="cart_quantity"><?php echo number_format($product['Quantity']);?></p>
-				</div>
+								</div>
 							      </td>
 							      <td class="cart_total">
 								      <p class="cart_total_price"><?php echo number_format($product['Total']);?></p>
@@ -249,7 +67,7 @@
 						      </tr>					
                 <?php endforeach;?>
                 
-                <tr>
+                              <tr>
 							    <td colspan="4">&nbsp;</td>
 							    <td colspan="2">
 								    <table class="table table-condensed total-result">
@@ -280,13 +98,26 @@
                 
 					    </tbody>
 				    </table>
-          <?php endif;?>
-			</div>
-			<div class="payment-options">
+                  <?php endif;?>
+    			</div>
+    			
+      			<div class="form-group">
+                    <label class="control-label col-md-2 col-md-offset-2" for="Address">Địa chỉ giao hàng</label><br>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <div class="col-md-7">
+                          <textarea class="form-control" id="Address" name="Address" type="text" style="width:500px; height: 100px;"  placeholder="Địa chỉ giao hàng" required></textarea>
+                        </div>
+                      </div>
+                    </div>
+                </div>
 
-        <a class="btn btn-default check_out pull-right" href="../app/bill.php">Thanh toán</a>                                    
-
-			</div>
+                <div class="form-group">
+                <div class="col-md-offset-4 col-md-3">
+                    <button type="submit"  class="btn btn-success check_out pull-right" >Thanh toán</button>
+                </div>
+              </div>
+            </form>                         
 		</div>
 	  </section> <!--/#cart_items-->
     <?php include "view/footer.php";?>

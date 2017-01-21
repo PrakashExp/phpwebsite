@@ -30,16 +30,17 @@
 						</ol>
 						
 						<div class="carousel-inner">
-    						<div class="item active">
+    						<div class="item active" style="height: 300px;">
 								<div class="col-sm-6">
-									<h1>Cái đầu tiên</h1>
-									<h2>Chẳng để làm gì</h2>
-									<p>Lỗi font rùi :( ahuhu</p>
-									<button type="button" class="btn btn-default get">Xem ngay</button>
+                  <h1>Website Bán Hoa Điện Tử</h1>
+                  <h2>Công nghệ Web và ứng dụng</h2>
+                  <h2>Lớp: SE341.H11</h2>
+									
+									<a href="./shop.php" class="btn btn-default get">Xem ngay</a>
 								</div>
 								<div class="col-sm-6">
 									<img src="" class="girl img-responsive" alt="" />
-									<img src="images/home/pricing.png"  class="pricing" alt="" />
+									<img src="images/home/Theme-Flower.jpg"  class="pricing" alt="" width="50%"  />
 								</div>
 							</div>
 							<?php 
@@ -48,16 +49,16 @@
                                 
                                 foreach ($result as $slide) :
 							?>
-							<div class="item">
+							<div class="item" style="height: 300px">
 								<div class="col-sm-6">
 									<h1><?php echo $slide['Title']; ?></h1>
 									<!-- <h2>100% Responsive Design</h2> -->
 									<p><?php echo $slide['Description']; ?></p>
-									<button type="button" class="btn btn-default get">Xem ngay</button>
+									<a href="./<?php echo $slide['Link']; ?>"><button type="button" class="btn btn-default get">Xem ngay</button></a>
 								</div>
 								<div class="col-sm-6">
 									<img src="<?php echo $slide['LinkImage']; ?>" class="girl img-responsive" alt="" />
-									<img src="images/home/pricing.png"  class="pricing" alt="" />
+                                <!-- <img src="images/home/pricing.png"  class="pricing" alt="" /> -->
 								</div>
 							</div>
 							<?php endforeach; ?>
@@ -127,12 +128,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="choose">
-									<ul class="nav nav-pills nav-justified">
-										<li><a href=""><i class="fa fa-plus-square"></i>Yêu thích</a></li>
-										<li><a href=""><i class="fa fa-plus-square"></i>So sánh</a></li>
-									</ul>
-								</div>
+
 							</div>
 						</div>
 						<?php 
@@ -150,32 +146,37 @@
 							<div class="carousel-inner">							            
 
 								<?php
-								$product=ProductDB::getMostSellingProducts();
-								foreach ($product as $key=>$chunk): 
-
-                 if($key == 0)
-                   echo "<div class='item active'>";
-                else
-                   echo "<div class='item'>";
+    								$product=ProductDB::getMostSellingProducts();
+    								foreach ($product as $key=>$chunk): 
+                                        if($key == 0)
+                                           echo "<div class='item active'>";
+                                        else
+                                           echo "<div class='item'>";
+        								
+        								$product=$chunk;
+        								foreach ($product as $value):
 								?>
-								  
-										<?php
-										$product=$chunk;
-										foreach ($product as $ProductID => $value): 
-										?>
-									    <div class="col-sm-4">
-										    <div class="product-image-wrapper">
-											    <div class="single-products">
-												    <div class="productinfo text-center">
-													    <a href="product-detail.php?ProductID=<?php echo $value['ProductID'];?>" > <img max-height="128" max-width="255" src="<?php echo '../' . $value['LinkImage']; ?>" alt="" /></a>
-													    <h2><?php echo number_format($value['Price']);?></h2>
-													    <a href="product-detail.php?ProductID=<?php echo $value['ProductID'];?>" > <p><b><?php echo $value['Name'];?></b></p></a>
-											        <a href="cart.php?action=add&ProductID=<?php echo $value['ProductID']; ?>&Quantity=1" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>
-												    </div>
-												    
-											    </div>
-										    </div>
-									    </div>	
+    								<div class="col-sm-4">
+            							<div class="product-image-wrapper">
+            								<div class="single-products">
+            									<div class="productinfo text-center">
+            										<img src="<?php echo '../' . $value['LinkImage']; ?>" alt="" />
+            										<h2><?php echo number_format($value['Price']);?></h2>
+            										<p><b><?php echo $value['ProductName'];?></b></p>
+            										<p><?php echo $value['CategoryName'];?></p>
+            									</div>
+            									<div class="product-overlay">
+            										<div class="overlay-content">
+                										<a href="product-detail.php?ProductID=<?php echo $value['ProductID'];?>" class="btn btn-default add-to-cart">Chi tiết sản phẩm</a>
+            											<h2><?php echo number_format($value['Price']) . ' VNĐ';?></h2>
+            											<p><b><?php echo $value['ProductName'];?></b></p>
+            											<p><?php echo $value['ProductID'];?></p>
+            											<a href="cart.php?action=add&ProductID=<?php echo $value['ProductID']; ?>&Quantity=1" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>
+            										</div>
+            									</div>
+            								</div>
+            							</div>
+            						</div>
 										<?php endforeach; ?>
 								  </div>
 								<?php endforeach; ?>

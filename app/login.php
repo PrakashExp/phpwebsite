@@ -30,11 +30,11 @@
 	            $userInfo      = Database::loadRow(Database::execute());
 	        
 	            if($Password != $userInfo['Password']){
-	                echo "<script>alert('Invalid Name or Password!');</script>";
+	                echo "<script>alert('Tên đăng nhập hoặc mật khẩu không chính xác!');</script>";
 	                echo "<meta http-equiv='refresh' content='0;url=../app/login.php'>";
 	            } else {
 	                if($userInfo['Active'] == 0){
-	                    echo "<script>alert('The Account has been deactivated! Please contact with the administrator!');</script>";
+	                    echo "<script>alert('Tài khoản đã bị khóa. Vui lòng liên hệ với người quản trị!');</script>";
 						echo "<meta http-equiv='refresh' content='0;url=../app/login.php'>";
 	                } else {
 	                    $_SESSION['User']['FullName']   = $userInfo['Name'];

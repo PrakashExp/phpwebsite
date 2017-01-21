@@ -25,7 +25,7 @@
             ?>				
 				<div class="col-sm-9 padding-right">
 					<div class="features_items"><!--features_items-->
-						<h2 class="title text-center">Features Items</h2>
+						<h2 class="title text-center">Danh sách sản phẩm</h2>
 						<?php 
     						if (count($Products) == 0){
     						    echo 'Dữ liệu đang cập nhật!';
@@ -54,12 +54,6 @@
                       <a href="cart.php?action=add&ProductID=<?php echo $value['ProductID']; ?>&Quantity=1" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>
 										</div>
 									</div>
-								</div>
-								<div class="choose">
-									<ul class="nav nav-pills nav-justified">
-										<li><a href=""><i class="fa fa-plus-square"></i>Yêu thích</a></li>
-										<li><a href=""><i class="fa fa-plus-square"></i>So sánh</a></li>
-									</ul>
 								</div>
 							</div>
 						</div>

@@ -24,6 +24,7 @@
     $TelNumber = $UserInfo['TelNumber'];
     $Email = $UserInfo['Email'];
     $TypeUser = $UserInfo['TypeUser'];
+    $Active = $UserInfo['Active'];
     $Revenue = $UserInfo['Revenue'];
         
     switch (@$_GET['action']){
@@ -32,15 +33,11 @@
                 $OldPassword    = '';
                 $NewPassword    = '';
                 
-                if (isset($_POST['OldPassword'])){                 
+                if (!checkEmpty($_POST['NewPassword'])){               
                     if (AccountDB::checkOldPassword($UserID, $_POST['OldPassword'])) {
                         $OldPassword    = $_POST['OldPassword'];
                         $NewPassword    = $_POST['NewPassword'];
-                        echo "Mật khẩu trùng khớp";
 						AccountDB::setNewPassword($Username,$NewPassword);
-						
-                    } else {
-                        echo "Mật khẩu không trùng khớp";
                     }
                 }
                 

@@ -1,20 +1,22 @@
 <div class="wrapper">  
-
   <br>
   <p class="h3 text-center">{{options.title}}</p>
-
 </div>
 
-<button class="btn btn-success" ng-click="activeItems()">Hoạt động</button>
-<button class="btn btn-warning" ng-click="hideItems()">Tạm ngưng</button>
 <div class="btn-group">
-  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Lọc
-  </button>
+  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cập nhật</button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#" ng-click="activeItems()">Hoạt động<br></a>
+    <a class="dropdown-item" href="#" ng-click="hideItems()">Tạm ngưng<br></a>
+  </div>
+</div>
+
+<div class="btn-group">
+  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Lọc</button>
 
   <div class="dropdown-menu">
+	<a class="dropdown-item" href="#" ng-click="filterBy('all')">Tất cả<br></a>
     <a class="dropdown-item" href="#" ng-repeat="item in options.category" ng-click="filterBy(item.GroupName)">{{item.GroupName}}<br></a>
-    <a class="dropdown-item" href="#" ng-click="filterBy('all')">Tất cả<br></a>
   </div>
 </div>
 
@@ -37,26 +39,19 @@
     </div>
 
     <div class="cell">
-      <a href="profile.php?UserID={{record.linkID}}">Xem</a>
+      <a href="admin_detail_of_user.php?UserID={{record.linkID}}">Xem</a>
     </div>
 
-    <div class="cell" ng-switch="record.active">
-
-      <div ng-switch-when="1">
-        <i class="fa fa-check" style="color:green; font-size: 15px">
-        </i>          
-      </div>
-
-      <div ng-switch-when="0">
-        <i class="fa fa-ban" style="color:red; font-size: 15px">
-        </i>          
-      </div>
-
-    </div>
-
+	<div class="cell" ng-switch="record.active">
+	    <div ng-switch-when="1">
+			<i class="fa fa-check" style="color:green; font-size: 15px"></i>          
+		</div>
+	
+		<div ng-switch-when="0">
+			<i class="fa fa-ban" style="color:red; font-size: 15px"></i>          
+		</div>
+	</div>
   </div>
-
-
 </div>
 
 

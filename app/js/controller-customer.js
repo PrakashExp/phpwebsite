@@ -14,9 +14,14 @@ var productField = function(item) {
 }
 
 var billField = function(item) {
+  var employeeName = item.EmployeeName;
+
+  if (employeeName === null)
+    employeeName = "Chưa có";
+
   return [
     item.BillID,
-    item.EmployeeName,
+    employeeName,
     item.BillValue,
   ];
 }
@@ -54,7 +59,7 @@ app.controller('AdminCtrl', function($scope, $http, $location) {
         return {
           info: billField(item),
           status: item.Status,
-          linkID: 'details-of-bill.php?billID=' + item.BillID,
+          linkID: 'customer_details-of-bill.php?billID=' + item.BillID,
           selected: false
         };
       });

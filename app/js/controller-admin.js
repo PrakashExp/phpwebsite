@@ -14,16 +14,23 @@ var productField = function(item) {
 }
 
 var billField = function(item) {
+
+  var employeeName = item.EmployeeName;
+
+  if (employeeName === null)
+    employeeName = "Chưa có";
+
   return [
     item.BillID,
     item.CustomerName,
-    item.EmployeeName,
+    employeeName,
     item.BillValue,
   ];
 }
 
 var userField = function(item) {
   return [
+    item.UserID,
     item.Name,
     item.Address,
     item.Email,
@@ -61,7 +68,7 @@ app.controller('AdminCtrl', function($scope, $http, $location) {
       return {
         info: billField(item),
         status: item.Status,
-        linkID: 'details-of-bill.php?billID=' + item.BillID + '&userID=' + item.CustomerID,
+        linkID: 'admin_detail_of_bill.php?billID=' + item.BillID + '&userID=' + item.CustomerID,
         selected: false
       };
     });
@@ -92,7 +99,7 @@ app.controller('AdminCtrl', function($scope, $http, $location) {
 
   $http({
     method: 'GET',
-    url: ajax + 'products.php?action=getActiveProducts&page-index=1&number-items=100'
+    url: ajax + 'products.php?action=getActiveProducts&page-index=1&number-items=500'
   }).then(function (res) {
     console.log('get success');
 //    console.log(JSON.stringify(res.data));
@@ -216,34 +223,25 @@ app.controller('AdminCtrl', function($scope, $http, $location) {
 
   $scope.productList = {
     title: 'DANH SÁCH SẢN PHẨM',
-    header: ['Chọn', 'Mã sản phẩm', 'Tên sản phẩm', 'Loại', 'Giá tiền', 'Số lượng', 'Chi tiết', 'Hiện trạng'],
+    header: ['Chọn', 'Mã sản phẩm', 'Tên sản phẩm', 'Loại', 'Giá tiền', 'Số lượng', 'Chi tiết', 'Hiển thị'],
     records: [],
   };
 
   $scope.categoryList = {
     title: 'DANH SÁCH NHÓM SẢN PHẨM',
     header: ['Mã nhóm', 'Tên nhóm', 'Độ ưu tiên'],
-    records: [
-      {
-        info: ['01', 'mrwen', '1'],
-        link: './01',
-      },
-      {
-        info: ['02', 'mrwen', '2'],
-        link: './02',
-      },
-    ],
+    records: []
   };
 
   $scope.memberList = {
     title: 'DANH SÁCH KHÁCH HÀNG',
-    header: ['Chọn', 'Họ tên', 'Địa chỉ', 'Email', 'Điện thoại', 'Loại', 'Chi tiết' , 'Hiệu lực'],
+    header: ['Chọn', 'Mã KH' ,'Họ tên', 'Địa chỉ', 'Email', 'Điện thoại', 'Loại', 'Chi tiết' , 'Hiệu lực'],
     records: [],
   };
 
   $scope.agentList = {
     title: 'DANH SÁCH NHÂN VIÊN',
-    header: ['Chọn', 'Họ tên', 'Địa chỉ', 'Email', 'Điện thoại', 'Loại', 'Chi tiết' , 'Hiệu lực'],
+    header: ['Chọn', 'Mã nhân viên', 'Họ tên', 'Địa chỉ', 'Email', 'Điện thoại', 'Loại', 'Chi tiết' , 'Hiệu lực'],
     records: [],
   };
 
@@ -292,7 +290,7 @@ app.directive("member", ['$http', function($http) {
       scope.filterBy = function(categoryName) {
         console.log('filter by what');
         console.log(categoryName);
-        var indexToFilter = 4;  // filter loai khach hang
+        var indexToFilter = 5;  // filter loai khach hang
         var filterWhat = categoryName;
 //        var list = scope.options.records;
         var list = scope.options.duplicateRecords;
@@ -616,6 +614,76 @@ app.directive("bill", ['$http', function($http) {
         }
       }
 
+      scope.shipItems = function() {
+        var billRecords = scope.options.records;
+        var indexList = scope.indexList;
+
+        var activeItems = []
+        for(var i = scope.indexList.length - 1; i >= 0; i--) {
+          activeItems.push(billRecords[indexList[i]].info[0])
+        }
+
+        var listBill = {
+          listBillIDs: activeItems,
+          userID: scope.options.userID
+        };
+
+        $http({
+          method: 'POST',          
+          data: listBill,
+          url: ajax + 'bills.php?action=Shipping'
+        }).then(function (res) {
+          console.log('get success');
+          console.log(JSON.stringify(res.data));
+          scope.indexList = []   // clear all 
+        }, function(err) {
+          console.log("error");
+          console.log(JSON.stringify(err));
+          scope.indexList = []   // clear all 
+        })
+
+        console.log(JSON.stringify(activeItems));
+
+        for(var i = 0; i < indexList.length; i++) {
+          scope.options.records[indexList[i]].status = 4;
+        }
+      }
+
+      scope.shippedItems = function() {
+        var billRecords = scope.options.records;
+        var indexList = scope.indexList;
+
+        var activeItems = []
+        for(var i = scope.indexList.length - 1; i >= 0; i--) {
+          activeItems.push(billRecords[indexList[i]].info[0])
+        }
+
+        var listBill = {
+          listBillIDs: activeItems,
+          userID: scope.options.userID
+        };
+
+        $http({
+          method: 'POST',          
+          data: listBill,
+          url: ajax + 'bills.php?action=Shipped'
+        }).then(function (res) {
+          console.log('get success');
+          console.log(JSON.stringify(res.data));
+          scope.indexList = []   // clear all 
+        }, function(err) {
+          console.log("error");
+          console.log(JSON.stringify(err));
+          scope.indexList = []   // clear all 
+        })
+
+        console.log(JSON.stringify(activeItems));
+
+        for(var i = 0; i < indexList.length; i++) {
+          scope.options.records[indexList[i]].status = 5;
+        }
+      }
+
       scope.deliverItems = function() {
         var billRecords = scope.options.records;
         var indexList = scope.indexList;
@@ -712,6 +780,56 @@ app.directive("product", ['$http', function($http) {
 
         console.log(JSON.stringify(scope.indexList));
       }
+      
+      scope.getActiveProduct = function() {
+          $http({
+            method: 'GET',
+            url: ajax + 'products.php?action=getActiveProducts&page-index=1&number-items=500'
+          }).then(function (res) {
+            console.log('get success');
+            //    console.log(JSON.stringify(res.data));
+
+            var arr = [];
+
+            $.map(res.data, function(item) {      
+              var json = {
+                info: productField(item),
+                active: item.Active,
+                hide: item.Hide,
+                linkID: item.ProductID,
+                selected: false
+              }
+
+              arr.push(json);
+            });
+            scope.options.records = arr;
+          });
+        }
+
+      scope.getDeletedProduct = function() {
+        $http({
+          method: 'GET',
+          url: ajax + 'products.php?action=getDeletedProducts&page-index=1&number-items=500'
+        }).then(function (res) {
+          console.log('get success');
+          //    console.log(JSON.stringify(res.data));
+
+          var arr = [];
+
+          $.map(res.data, function(item) {      
+            var json = {
+              info: productField(item),
+              active: item.Active,
+              hide: item.Hide,
+              linkID: item.ProductID,
+              selected: false
+            }
+
+            arr.push(json);
+          });
+          scope.options.records = arr;
+        });
+      }
 
       scope.filterBy = function(categoryName) {
         console.log('filter by what');
@@ -769,8 +887,11 @@ app.directive("product", ['$http', function($http) {
 
         console.log(JSON.stringify(activeItems));
 
+        var sum = 0;
         for(var i = 0; i < indexList.length; i++) {
-          scope.options.records[indexList[i]].hide = 0;
+          scope.options.records.splice(indexList[i] - sum, 1);          
+          sum = sum + 1;
+//          scope.options.records[indexList[i]].hide = 0;
         }
       }
 
@@ -794,11 +915,11 @@ app.directive("product", ['$http', function($http) {
         }).then(function (res) {
           console.log('get success');
           console.log(JSON.stringify(res.data));
-          scope.indexList = []   // clear all 
+//          scope.indexList = []   // clear all 
         }, function(err) {
           console.log("error");
           console.log(JSON.stringify(err));
-          scope.indexList = []   // clear all 
+//          scope.indexList = []   // clear all 
         })
 
         console.log(JSON.stringify(hideItems));
@@ -807,6 +928,40 @@ app.directive("product", ['$http', function($http) {
           scope.options.records[indexList[i]].hide = 1;
         }
       }
+     
+      scope.showItems = function() {
+          var productRecords = scope.options.records;
+          var indexList = scope.indexList;
+
+          var hideItems = []
+          for(var i = scope.indexList.length - 1; i >= 0; i--) {
+            hideItems.push(productRecords[indexList[i]].info[0])
+          }
+
+          var listProduct = {
+            listProductIDs: hideItems
+          };
+
+          $http({
+            method: 'POST',          
+            data: listProduct,
+            url: ajax + 'products.php?action=Show'
+          }).then(function (res) {
+            console.log('get success');
+            console.log(JSON.stringify(res.data));
+//            scope.indexList = []   // clear all 
+          }, function(err) {
+            console.log("error");
+            console.log(JSON.stringify(err));
+//            scope.indexList = []   // clear all 
+          })
+
+          console.log(JSON.stringify(hideItems));
+
+          for(var i = 0; i < indexList.length; i++) {
+            scope.options.records[indexList[i]].hide = 0;
+          }
+        }
 
       scope.deleteItems = function() {
         var productRecords = scope.options.records;
@@ -842,7 +997,7 @@ app.directive("product", ['$http', function($http) {
           console.log('remove ' + indexList[i]);
         }
       }
-
+      
       scope.testBy = function() {
 
         $http({

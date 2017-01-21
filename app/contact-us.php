@@ -37,7 +37,7 @@
 	    			<div class="contact-form">
 	    				<h2 class="title text-center">Ý kiến</h2>
 	    				<div class="status alert alert-success" style="display: none"></div>
-				    	<form id="main-contact-form" class="contact-form row" name="contact-form" method="post">
+				    	<form id="main-contact-form" action="../api/controller/contact-us.php" class="contact-form row" name="contact-form" method="post">
 				            <div class="form-group col-md-6">
 				                <input type="text" name="name" class="form-control" required="required" placeholder="Họ tên">
 				            </div>
@@ -48,10 +48,10 @@
 				                <input type="text" name="subject" class="form-control" required="required" placeholder="Chủ đề">
 				            </div>
 				            <div class="form-group col-md-12">
-				                <textarea name="message" id="message" required="required" class="form-control" rows="8" placeholder="Nhập nội dung tại đây"></textarea>
+				                <textarea name="message" id="message" required class="form-control" rows="8" placeholder="Nhập nội dung tại đây"></textarea>
 				            </div>                        
 				            <div class="form-group col-md-12">
-				                <input type="submit" name="submit" class="btn btn-primary pull-right" value="Gửi">
+				                <input type="submit" name="submit_feed_back" class="btn btn-primary pull-right" value="Gửi">
 				            </div>
 				        </form>
 	    			</div>
@@ -67,23 +67,13 @@
 							<p>Fax: +84 123 456 79</p>
 							<p>Email: info@flowershop.com</p>
 	    				</address>
-	    				<div class="social-networks">
-	    					<h2 class="title text-center">Kết nối với mạng xã hội</h2>
-							<ul>
-								<li>
-									<a href="#"><i class="fa fa-facebook"></i></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-twitter"></i></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-google-plus"></i></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-youtube"></i></a>
-								</li>
-							</ul>
-	    				</div>
+	    				<h2 class="title text-center">Người thực hiên</h2>
+	    				<address>
+	    					<p>1. Triệu Tráng Vinh</p>
+							  <p>2. Nguyễn Thành Nguyên</p>
+							  <p>3. Lưu Thanh Sơn</p>
+							  <p>4. Lê Thị Châu Ngân</p>
+	    				</address>
 	    			</div>
     			</div>    			
 	    	</div>  

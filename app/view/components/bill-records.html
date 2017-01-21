@@ -8,15 +8,23 @@
 
 </div>
 
-<button class="btn btn-success" ng-click="verifyItems()">Xác nhận</button>
-<button class="btn btn-success" ng-click="packItems()">Đóng gói</button>
-<button class="btn btn-warning" ng-click="deliverItems()">Giao hàng</button>
-<button class="btn btn-warning" ng-click="cancelItems()">Hủy</button>
-
 <div class="btn-group">
   <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Lọc
+    Cập nhật
   </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#" ng-click="verifyItems()">Xác nhận<br></a>
+    <a class="dropdown-item" href="#" ng-click="packItems()">Đóng gói<br></a>
+    <a class="dropdown-item" href="#" ng-click="shipItems()">Đang chuyển đi<br></a>
+    <a class="dropdown-item" href="#" ng-click="shippedItems()">Đang giao<br></a>
+    <a class="dropdown-item" href="#" ng-click="deliverItems()">Đã giao<br></a>
+    <a class="dropdown-item" href="#" ng-click="cancelItems()">Huỷ bỏ<br></a>
+  </div>
+</div>
+
+
+<div class="btn-group">
+  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Lọc</button>
   <div class="dropdown-menu">
     <a class="dropdown-item" href="#" ng-repeat="item in options.category" ng-click="filterBy(item.StatusName)">{{item.StatusName}}<br></a>
     <a class="dropdown-item" href="#" ng-click="filterBy('all')">Tất cả<br></a>

@@ -5,8 +5,15 @@
          * Lấy profile cá nhân.
          * @return Ambigous <boolean, multitype:>
          */
-        public static function getProfile(){
-            @$UserID = $_SESSION['User']['UserID'];
+        public static function getProfile($UserID = NULL){
+            if ($UserID == NULL){
+                $UserID = $_SESSION['User']['UserID'];
+            }
+            
+            $GroupID    = UserDB::getGroupID();
+            $GroupID    = $GroupID['GroupID'];
+            
+            $charComp   = ($GroupID >= 4) ? "<=" : "=";
             
             $db = Database::getDB();
             
@@ -27,7 +34,7 @@
                           `users` JOIN `groups` ON `users`.`GroupID` = `groups`.`GroupID`
                                   JOIN `accounts` ON `users`.`UserID` = `accounts`.`UserID`
                         WHERE
-                          `users`.`UserID` = \'' . $UserID . '\'';
+                          `users`.`GroupID` ' . $charComp . ' \'' . $GroupID . '\' AND `users`.`UserID` = \'' . $UserID . '\'';
             
             Database::setQuery($sql);
             $stmt   = Database::execute();
@@ -40,7 +47,12 @@
          * @return Ambigous <boolean, mixed>
          */
         public static function getGroupID(){
-            @$UserID = $_SESSION['User']['UserID'];
+            if (isset($_SESSION['User'])){
+                $UserID = $_SESSION['User']['UserID'];
+            }
+            else {
+                return false;
+            }
             
             $db = Database::getDB();
             

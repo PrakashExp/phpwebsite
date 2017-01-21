@@ -156,18 +156,13 @@
               <div class="form-group">
                 <div class="col-md-offset-4 col-md-3">
                   <button type="submit" name="add" class="btn btn-success">Thêm sản phẩm</button>
-                </div>
-              </div>
-              
-              <div class="form-group">
-                <div class="col-md-offset-4 col-md-3">
                   <button type="reset" name="reset" class="btn btn-success btn-responsive">Nhập lại</button>
                 </div>
               </div>
 
               <div class="form-group">
                 <div class="col-md-offset-4 col-md-3">
-                  <a href="admin-dashboard.php" class="btn btn-success btn-responsive">Quay lai</a>
+                  <a href="admin-dashboard.php" class="btn btn-danger">Quay lai</a>
                 </div>
               </div>
                    

@@ -9,9 +9,7 @@
 </div>
 
 <div class="btn-group">
-  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Lọc
-  </button>
+  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Lọc</button>
   <div class="dropdown-menu">
     <a class="dropdown-item" href="#" ng-repeat="item in options.category" ng-click="filterBy(item.StatusName)">{{item.StatusName}}<br></a>
     <a class="dropdown-item" href="#" ng-click="filterBy('all')">Tất cả<br></a>
@@ -37,7 +35,7 @@
     </div>
 
     <div class="cell">
-      <a href="{{record.linkID}}">Xem</a>
+      <a href="{{record.linkID}}">Xem </a>
     </div>
 
     <div class="cell">

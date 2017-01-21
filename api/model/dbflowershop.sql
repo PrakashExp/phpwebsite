@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 10, 2016 at 02:40 AM
+-- Generation Time: Dec 28, 2016 at 05:19 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -45,8 +45,9 @@ DROP TABLE IF EXISTS `bills`;
 CREATE TABLE `bills` (
   `BillID` varchar(8) COLLATE utf8_unicode_ci NOT NULL COMMENT 'ID hóa đơn',
   `Time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Ngày lập hóa đơn',
-  `CustomerID` varchar(8) COLLATE utf8_unicode_ci NOT NULL COMMENT 'ID khách hàng',
+  `CustomerID` varchar(8) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'ID khách hàng',
   `EmployeeID` varchar(8) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'ID nhân viên',
+  `Address` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Địa chỉ giao hàng',
   `BillValue` int(11) NOT NULL COMMENT 'Giá trị hóa đơn',
   `Status` int(11) NOT NULL DEFAULT '1' COMMENT 'Trạng thái hóa đơn'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Hóa đơn bán hàng';
@@ -258,7 +259,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `slideshow`
 --
 ALTER TABLE `slideshow`
-  MODIFY `SlideShowID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID slideshow';
+  MODIFY `SlideShowID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID slideshow', AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `statusbills`
 --
